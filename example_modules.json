@@ -1,0 +1,40 @@
+{
+    "libraries": [
+      {
+          "file": "/opt/tiger/mesos_deploy_videoarch/mesos-1.7.x/lib/libdynamic_resource_estimator.so",
+      	   "modules": {
+      	     "name": "com_bytedance_DynamicResourceEstimator",
+      	     "parameters": [
+               {
+      	         "key": "resources",
+      	         "value": "cpus:10"
+      	       },
+               {
+      	         "key": "load_upper_limit",
+      	         "value": "50"
+      	       },
+               {
+      	         "key": "load_lower_limit",
+      	         "value": "10"
+      	       }
+             ]
+      	   }
+      },
+      {
+        "file": "/opt/tiger/mesos_deploy_videoarch/mesos-1.7.x/lib/libload_qos_controller.so",
+        "modules": {
+          "name": "org_apache_mesos_LoadQoSController",
+          "parameters": [
+            {
+              "key": "load_threshold_5min",
+              "value": "10"
+            },
+            {
+          "key": "load_threshold_15min",
+          "value": "8"
+            }
+          ]
+        }
+      }
+    ]
+}

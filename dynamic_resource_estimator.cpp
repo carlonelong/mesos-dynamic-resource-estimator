@@ -1,14 +1,10 @@
 #include <mesos/module/resource_estimator.hpp>
-
 #include <mesos/slave/resource_estimator.hpp>
 
 #include <process/defer.hpp>
 #include <process/dispatch.hpp>
-#include <process/id.hpp>
-#include <process/owned.hpp>
 #include <process/process.hpp>
 
-#include <stout/lambda.hpp>
 #include <stout/os.hpp>
 
 using namespace mesos;

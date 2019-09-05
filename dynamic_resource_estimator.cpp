@@ -58,7 +58,6 @@ public:
       return result;
     };
 
-    // linearly decrease as CPU load increases. 
     double factor = 0;
 
     Try<os::Load> load = os::loadavg(); 
@@ -67,8 +66,12 @@ public:
       if (load->one >= loadUpperLimit) {
         factor = 1;
       } else if (load->one > loadLowerLimit) {
-        factor = load->one/(loadUpperLimit-loadLowerLimit) - 
-                 loadLowerLimit/(loadUpperLimit-loadLowerLimit);
+        // linear
+        // factor = (load->one-loadLowerLimit)/(loadUpperLimit-loadLowerLimit);
+
+        // parabolic
+        factor = (load->one-loadLowerLimit)/(loadUpperLimit-loadLowerLimit);
+        factor *= factor;
       }
     }
 

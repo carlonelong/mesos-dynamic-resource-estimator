@@ -38,16 +38,11 @@ public:
 
   Future<Resources> oversubscribable()
   {
-    return usage().then(defer(self(), &Self::_oversubscribable, lambda::_1));
+    return _oversubscribable();
   }
 
-  Future<Resources> _oversubscribable(const ResourceUsage& usage)
+  Future<Resources> _oversubscribable()
   {
-    Resources allocatedRevocable;
-    foreach (const ResourceUsage::Executor& executor, usage.executors()) {
-      allocatedRevocable += Resources(executor.allocated()).revocable();
-    }
-
     auto unallocated = [](const Resources& resources) {
       Resources result = resources;
       result.unallocate();
@@ -74,7 +69,7 @@ public:
     Resource loss = Resources::parse("cpus", std::to_string(int(factor*revocableLimit)), "*").get();
     loss.mutable_revocable();
 
-    return totalRevocable - loss - unallocated(allocatedRevocable);
+    return totalRevocable - loss;
   }
 
 protected:
